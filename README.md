@@ -41,7 +41,7 @@ taskAPi/
 
 View API test screenshots and results:
 
-**[Google Drive - API Test Screenshots](https://drive.google.com/drive/u/0/folders/1g5vkvPtBsW2bTrxElP4Fmo-JK377xtX7)**
+**[Link - API Test Screenshots](https://drive.google.com/drive/u/0/folders/1g5vkvPtBsW2bTrxElP4Fmo-JK377xtX7)**
 
 The folder contains:
 - Authentication response screenshots
