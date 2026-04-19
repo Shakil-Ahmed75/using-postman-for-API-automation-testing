@@ -1,0 +1,700 @@
+{
+  "info": {
+    "_postman_id": "fb1e16be-12c9-4fd3-9069-663984939099",
+    "name": "apiCollection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53332941",
+    "_collection_link": "https://go.postman.co/collection/53332941-fb1e16be-12c9-4fd3-9069-663984939099?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "pm.collectionVariables.set(\"token\", response.data.token);\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "*/*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9"
+          },
+          {
+            "key": "content-type",
+            "value": "application/json"
+          },
+          {
+            "key": "origin",
+            "value": "https://vantara.yosuite.net"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://vantara.yosuite.net/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"tecaf12821@mypethealh.com\",\r\n    \"password\": \"HUG5dkQIJq@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api-user-account.yosuite.net/api/auth",
+          "protocol": "https",
+          "host": [
+            "api-user-account",
+            "yosuite",
+            "net"
+          ],
+          "path": [
+            "api",
+            "auth"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api-user-account.yosuite.net/api/auth' \\\r\n  -H 'accept: */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9' \\\r\n  -H 'content-type: application/json' \\\r\n  -H 'origin: https://vantara.yosuite.net' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://vantara.yosuite.net/' \\\r\n  -H 'sec-ch-ua: \"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36' \\\r\n  --data-raw '{\"email\":\"tecaf12821@mypethealh.com\",\"password\":\"gjgjgj\"}'"
+      },
+      "response": []
+    },
+    {
+      "name": "createEmployee",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Helper function\r",
+              "function randomInt(min, max) {\r",
+              "    return Math.floor(Math.random() * (max - min + 1)) + min;\r",
+              "}\r",
+              "\r",
+              "// Basic info\r",
+              "let firstName = `FN_${randomInt(100,999)}`;\r",
+              "let lastName = `LN_${randomInt(100,999)}`;\r",
+              "let middleName = `MN_${randomInt(100,999)}`;\r",
+              "\r",
+              "// Email (always unique)\r",
+              "let email = `user${Date.now()}@test.com`;\r",
+              "\r",
+              "// Phone (BD format realistic)\r",
+              "let phone = `8801${randomInt(30000000,99999999)}`;\r",
+              "\r",
+              "// Staff ID\r",
+              "let staffId = `${randomInt(100000,999999)}`;\r",
+              "\r",
+              "// Date functions\r",
+              "let today = new Date().toISOString().split(\"T\")[0];\r",
+              "\r",
+              "// Better DOB (valid format)\r",
+              "let year = randomInt(1990, 2002);\r",
+              "let month = String(randomInt(1,12)).padStart(2,'0');\r",
+              "let day = String(randomInt(1,28)).padStart(2,'0');\r",
+              "let dob = `${year}-${month}-${day}`;\r",
+              "\r",
+              "// Address generator (reusable function)\r",
+              "function generateAddress() {\r",
+              "    return {\r",
+              "        street_1: `Street_${randomInt(1,100)}`,\r",
+              "        street_2: null,\r",
+              "        country: \"Anguilla\",\r",
+              "        state: \"East End\",\r",
+              "        city: `City_${randomInt(1,50)}`,\r",
+              "        zip: `ZIP_${randomInt(1000,9999)}`\r",
+              "    };\r",
+              "}\r",
+              "\r",
+              "let presentAddress = generateAddress();\r",
+              "\r",
+              "// Final body\r",
+              "let requestBody = {\r",
+              "    first_name: firstName,\r",
+              "    middle_name: middleName,\r",
+              "    last_name: lastName,\r",
+              "    email: email,\r",
+              "    phone: phone,\r",
+              "    staff_id: staffId,\r",
+              "\r",
+              "    address_group: {\r",
+              "        present_address: presentAddress,\r",
+              "        permanent_address: {\r",
+              "            same_as_present_address: true,\r",
+              "            ...presentAddress\r",
+              "        }\r",
+              "    },\r",
+              "\r",
+              "    // Static IDs (keep as is)\r",
+              "    employee_department_option_id: \"69391644740acf1e0c0373e7\",\r",
+              "    employee_job_location_option_id: \"695dde14f97ee294810d9823\",\r",
+              "    employee_status_option_id: \"692fdff8397c6c094bfb44a5\",\r",
+              "    employee_gender_option_id: \"692fdffb397c6c094bfb44cd\",\r",
+              "    employee_job_type_option_id: \"692fdff8397c6c094bfb44ab\",\r",
+              "    employee_job_title_option_id: \"695dd83f49eaf632130950b3\",\r",
+              "    manager_id: \"69ad216652b0b8a3d20a9eb2\",\r",
+              "    who_to_contact_id: \"69ad214f52b0b8a3d20a9ea6\",\r",
+              "    shift_option_id: \"692fe275f348e6963301e216\",\r",
+              "\r",
+              "    social_security_no: `SSN_${randomInt(10000,99999)}`,\r",
+              "\r",
+              "    work_function: \"remote\",\r",
+              "\r",
+              "    date_of_birth: dob,\r",
+              "    hire_date: today,\r",
+              "    joining_date: today,\r",
+              "\r",
+              "    employer_tasks: null,\r",
+              "    joiner_tasks: null,\r",
+              "\r",
+              "    joiner_questions: {\r",
+              "        \"695ddd1ce35026b82201d8b3\": {\r",
+              "            \"0\": true,\r",
+              "            \"1\": true\r",
+              "        },\r",
+              "        \"697b3ceef1f074b159047766\": {\r",
+              "            \"0\": true\r",
+              "        }\r",
+              "    }\r",
+              "};\r",
+              "\r",
+              "// Save\r",
+              "pm.environment.set(\"requestBody\", JSON.stringify(requestBody));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Parse response JSON\r",
+              "let res = pm.response.json();\r",
+              "\r",
+              "// ==================== Success Messages ====================\r",
+              "pm.test(\"Success messages are correct\", () => {\r",
+              "    // Check that 'success' exists\r",
+              "    pm.expect(res.message).to.have.property(\"success\");\r",
+              "\r",
+              "    // Expected messages\r",
+              "    const expectedMessages = [\r",
+              "        \"Employee Added Successfully!\",\r",
+              "        \"You’ve successfully added a new employee, you can find the employee onboarding updates on their profile.\"\r",
+              "    ];\r",
+              "\r",
+              "    // Check length\r",
+              "    pm.expect(res.message.success.length, \"Number of success messages\").to.eql(expectedMessages.length);\r",
+              "\r",
+              "    // Check each message\r",
+              "    expectedMessages.forEach((msg, index) => {\r",
+              "        pm.expect(\r",
+              "            res.message.success[index],\r",
+              "            `Expected message at index ${index} to be \"${msg}\", but got \"${res.message.success[index]}\"`\r",
+              "        ).to.eql(msg);\r",
+              "    });\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "*/*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9"
+          },
+          {
+            "key": "authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "origin",
+            "value": "https://microsoft.yosuite.net"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://microsoft.yosuite.net/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "data",
+              "value": "{{requestBody}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://api-backend.yosuite.net/component/modules/people/employee/e-onboarding-steps/form-component/store-content",
+          "protocol": "https",
+          "host": [
+            "api-backend",
+            "yosuite",
+            "net"
+          ],
+          "path": [
+            "component",
+            "modules",
+            "people",
+            "employee",
+            "e-onboarding-steps",
+            "form-component",
+            "store-content"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api-backend.yosuite.net/component/modules/people/employee/e-onboarding-steps/form-component/store-content' \\\r\n  -H 'accept: */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9' \\\r\n  -H 'authorization: Bearer AES-eyJjaXBoZXJ0ZXh0IjoiTmZ1c3B6VFpMNS9JZld5T1JZd0VFZW82UU5FYUdRWVJveGZHQjYrMzdlVnUvYWVkNXJOR1B6d0ZnMkxrblJWQkMrZXA0U3ZkTldTL0FzQWViQmxIcUxkOHIwSEh3SVE2YnR5TFYwQTlvSEVSYnZXWGZucnlvbXhxTTUxTUNONThLK3NTQ1lQOWZ5N01aSnl2eU1IMnBSSlo1NnlHTU1oMk1idjM4QUErcEhBZVhSUjFXd2M5dVRQdlpieC9FRkY4akhxQlJrT3dJK0hzcHNxQVVMNVd0c0psL0JRVjZMUXZyTiswRXlEUVB0ZStPaWt1cHRRNEQ3YWZVWUUvdWhPMjUzUTFXbnpyT0VVYUg0WDBUaXFJQ1VrNUdSWjVpanBBSm5qb0RhZGxwRGMzNHhCa3NQL1BxU21IblBnSWcvMnBFUDVody96MlZZamxDTXBJYnVJdEJOYnZNWmdHT0JSVVNVenFJdDl1MnIxT0wvWENEdnZPYXNrTEU0L0ZJWU5WQ2NyOGZraDZLMlQ3a0k3Q0ltZHJ2MXNVd0dLREZrZUpXblAyZkpEcUFLVEVvbmVmWUpTdGlMaENKVnV3bHBLMXJxOU1WTzgxSllSQ3k4K0dEUExjUkthWWlYQWFydk5kcUJ4RE1ZbGUxTDl6ellYYkxHbmJWang5WmFvMEZ5aFAiLCJzYWx0IjoiOTc1N2Y0NGIwODcxMTEzZGViODAwNTc1N2JmN2U5NjQiLCJpdiI6IjBiMzg5YjFiNmRlZWRkOTYxNmQxYTc3ODI3MzU3OGEzIiwiaXRlcmF0aW9ucyI6OTk5fQ==' \\\r\n  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundaryPV3qcBQTUG7Bdw6X' \\\r\n  -H 'origin: https://microsoft.yosuite.net' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://microsoft.yosuite.net/' \\\r\n  -H 'sec-ch-ua: \"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36' \\\r\n  --data-raw $'------WebKitFormBoundaryPV3qcBQTUG7Bdw6X\\r\\nContent-Disposition: form-data; name=\"data\"\\r\\n\\r\\n{\"first_name\":\"eedwdf\",\"last_name\":\"fscsx\",\"email\":\"wawoyep9601@besenica.com\",\"address_group\":{\"present_address\":{\"street_1\":\"zczc\",\"street_2\":null,\"country\":\"Anguilla\",\"state\":\"East End\",\"city\":\"\",\"zip\":\"zczc\"},\"permanent_address\":{\"same_as_present_address\":true,\"street_1\":\"zczc\",\"street_2\":null,\"country\":\"Anguilla\",\"state\":\"East End\",\"city\":\"\",\"zip\":\"zczc\"}},\"phone\":\"88011313\",\"employee_department_option_id\":\"69391644740acf1e0c0373e7\",\"employee_job_location_option_id\":\"695dde14f97ee294810d9823\",\"staff_id\":\"1233444\",\"middle_name\":\"fdfgdg\",\"social_security_no\":\"scxcx\",\"employee_status_option_id\":\"692fdff8397c6c094bfb44a5\",\"employee_gender_option_id\":\"692fdffb397c6c094bfb44cd\",\"date_of_birth\":\"2026-04-07\",\"present_address\":null,\"permanent_address\":null,\"employee_job_type_option_id\":\"692fdff8397c6c094bfb44ab\",\"work_function\":\"remote\",\"employee_job_title_option_id\":\"695dd83f49eaf632130950b3\",\"manager_id\":\"69ad216652b0b8a3d20a9eb2\",\"who_to_contact_id\":\"69ad214f52b0b8a3d20a9ea6\",\"hire_date\":\"2026-04-07\",\"joining_date\":\"2026-04-08\",\"shift_option_id\":\"692fe275f348e6963301e216\",\"employer_tasks\":null,\"joiner_tasks\":null,\"joiner_questions\":{\"695ddd1ce35026b82201d8b3\":{\"0\":true,\"1\":true},\"697b3ceef1f074b159047766\":{\"0\":true}}}\\r\\n------WebKitFormBoundaryPV3qcBQTUG7Bdw6X--\\r\\n'"
+      },
+      "response": []
+    },
+    {
+      "name": "announcementCreation",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Dynamic title\r",
+              "let title = \"test_\" + Math.floor(Math.random() * 10000);\r",
+              "\r",
+              "// Dynamic content text\r",
+              "let randomText = \"content_\" + Date.now();\r",
+              "\r",
+              "// Dynamic boolean\r",
+              "let pinned = Math.random() > 0.5;\r",
+              "let enable_comments = Math.random() > 0.5;\r",
+              "\r",
+              "// Final HTML content (dynamic text inside)\r",
+              "let content = `<p class=\"PlaygroundEditorTheme__paragraph\" dir=\"ltr\">\r",
+              "<span style=\"white-space: pre-wrap;\">${randomText}</span>\r",
+              "</p>`;\r",
+              "\r",
+              "// Final JSON object\r",
+              "let requestBody = {\r",
+              "    title: title,\r",
+              "    attachments: null,\r",
+              "    applicable_scope: \"all\",\r",
+              "    exclude_with: null,\r",
+              "    is_event: false,\r",
+              "    pinned: pinned,\r",
+              "    enable_comments: enable_comments,\r",
+              "    color: null,\r",
+              "    category: \"general\",\r",
+              "    content: content\r",
+              "};\r",
+              "\r",
+              "// Set variable\r",
+              "pm.environment.set(\"requestBody\", JSON.stringify(requestBody));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Parse response and request body\r",
+              "let res = pm.response.json();\r",
+              "\r",
+              "// ==================== Success Message ====================\r",
+              "pm.test(\"Success message is correct\", () => {\r",
+              "    pm.expect(res.message).to.have.property(\"success\");\r",
+              "    pm.expect(res.message.success[0]).to.eql(\"Data Inserted Successfully\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "*/*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9"
+          },
+          {
+            "key": "authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "origin",
+            "value": "https://microsoft.yosuite.net"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://microsoft.yosuite.net/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "data",
+              "value": "{{requestBody}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://api-backend.yosuite.net/component/modules/announcements/announcement/form/form-component/store-content",
+          "protocol": "https",
+          "host": [
+            "api-backend",
+            "yosuite",
+            "net"
+          ],
+          "path": [
+            "component",
+            "modules",
+            "announcements",
+            "announcement",
+            "form",
+            "form-component",
+            "store-content"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api-backend.yosuite.net/component/modules/announcements/announcement/form/form-component/store-content' \\\r\n  -H 'accept: */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9' \\\r\n  -H 'authorization: Bearer AES-eyJjaXBoZXJ0ZXh0IjoiSFlKbW8vYzVvTTRLSHlsaXJ0bk1aa1UzL3Bpelh3NCtETE0rNy90bGFpTGJDWmpEaHJMT3lncVR2azdvOTBUL1pPOGRIdE1VTXAwN004S0Jpc3VQMVJBQWhMblpHazlzVWtGMThISnd1czlqREhacTJqeFZMaHkxWU40ZHpYYUFqTW02emdyclpwTDUrQXhDT0taT3lrTUVSTlR5TnVLYUhXZGt5MjBUZkRMN1ZGVlR3bW14ZlVtbk1adkNURE91cXQvNmFwYmt3VGYxSjc1TVhEOHJyanR1K3N4VktYQkx5QnhJWVpmbStvdVl5MFdvb25IVE5EYlc3b2d0MDZSZDBZSGJ4Yk9wU1ZLN1BWWFRQdDE1bWo4RXBYSGJ2cktxbzd3R0k3Nk1XNFJwZnJuNHg0WGJIZDFUT1ZFTGlaUkpYSjdSUmNzclBuMmRvNm9nUXhTZXJYSitTVU9PVy9JN3A4OThmZEVXcFIrYzJoWXUrTEc4VWJ0R3lUUTNsaUhxWDF4bm1MK2ZEaFdnTC9MSnZXOHVuSjhDMi9zMy9mR25uMVNveVhsOTZtbDYxSVRYbmZEOTFZaCs3RTVZaHNPbEdQUzFXaGhiSFhTd0oxSTQxelNjeitja08veHVyUHlBVG94UlYwMVZhNkI0NTRYRUtHcXJsLzJteCtlc1dTUTkiLCJzYWx0IjoiZGJiMmQ4ZTRlMjBiNzllOTVlZTA3ZjE4ZDlkNzlhOWYiLCJpdiI6IjMxM2M1ZjQzMjU0MTkwNGE1MzFhNGY1ZDA5YjAyMmYyIiwiaXRlcmF0aW9ucyI6OTk5fQ==' \\\r\n  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundarygZCoqjVWKOJfAikA' \\\r\n  -H 'origin: https://microsoft.yosuite.net' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://microsoft.yosuite.net/' \\\r\n  -H 'sec-ch-ua: \"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36' \\\r\n  --data-raw $'------WebKitFormBoundarygZCoqjVWKOJfAikA\\r\\nContent-Disposition: form-data; name=\"data\"\\r\\n\\r\\n{\"title\":\"test01\",\"attachments\":null,\"applicable_scope\":\"all\",\"exclude_with\":null,\"is_event\":false,\"pinned\":false,\"enable_comments\":false,\"color\":null,\"category\":\"general\",\"content\":\"<p class=\\\\\"PlaygroundEditorTheme__paragraph\\\\\" dir=\\\\\"ltr\\\\\"><span style=\\\\\"white-space: pre-wrap;\\\\\">dvvc</span></p>\"}\\r\\n------WebKitFormBoundarygZCoqjVWKOJfAikA--\\r\\n'"
+      },
+      "response": []
+    },
+    {
+      "name": "awardCreation",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Random name & note\r",
+              "let name = \"test_\" + Math.floor(Math.random() * 10000);\r",
+              "let note = \"note_\" + Date.now();\r",
+              "\r",
+              "// Dynamic award item\r",
+              "let award_item = [\r",
+              "    {\r",
+              "        temp: \"Award_\" + Math.floor(Math.random() * 100),\r",
+              "        currency: \"USD\",\r",
+              "        gift_name: \"gift_\" + Math.floor(Math.random() * 1000),\r",
+              "        price: Math.floor(Math.random() * 500) + 50\r",
+              "    }\r",
+              "];\r",
+              "\r",
+              "// Final JSON\r",
+              "let requestBody = {\r",
+              "    name: name,\r",
+              "    note: note,\r",
+              "    award_item: award_item\r",
+              "};\r",
+              "\r",
+              "// Set to environment variable\r",
+              "pm.environment.set(\"requestBody\", JSON.stringify(requestBody));"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let res = pm.response.json();\r",
+              "let requestBody = JSON.parse(pm.environment.get(\"requestBody\"));\r",
+              "\r",
+              "// ==================== Name & Note ====================\r",
+              "pm.test(\"Name and note match request body\", () => {\r",
+              "    [\"name\", \"note\"].forEach(field => {\r",
+              "        pm.expect(\r",
+              "            res.data[field],\r",
+              "            `Expected \"${field}\" to be \"${requestBody[field]}\", but got \"${res.data[field]}\"`\r",
+              "        ).to.eql(requestBody[field]);\r",
+              "    });\r",
+              "});\r",
+              "\r",
+              "// ==================== Award Items ====================\r",
+              "pm.test(\"Award items match request body\", () => {\r",
+              "    let sentItems = requestBody.award_item || [];\r",
+              "    let respItems = res.data.award_item || [];\r",
+              "\r",
+              "    pm.expect(respItems.length, \"Number of award items should match\").to.eql(sentItems.length);\r",
+              "\r",
+              "    sentItems.forEach((sentItem, index) => {\r",
+              "        let respItem = respItems[index];\r",
+              "        Object.keys(sentItem).forEach(key => {\r",
+              "            pm.expect(\r",
+              "                respItem[key],\r",
+              "                `Award item[${index}]: expected \"${key}\" to be \"${sentItem[key]}\", but got \"${respItem[key]}\"`\r",
+              "            ).to.eql(sentItem[key]);\r",
+              "        });\r",
+              "    });\r",
+              "});\r",
+              "\r",
+              "// ==================== Success Message ====================\r",
+              "pm.test(\"Success message is correct\", () => {\r",
+              "    pm.expect(res.message).to.have.property(\"success\");\r",
+              "    pm.expect(res.message.success[0]).to.eql(\"Data Inserted Successfully\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "*/*"
+          },
+          {
+            "key": "accept-language",
+            "value": "en-US,en;q=0.9"
+          },
+          {
+            "key": "authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "origin",
+            "value": "https://microsoft.yosuite.net"
+          },
+          {
+            "key": "priority",
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://microsoft.yosuite.net/"
+          },
+          {
+            "key": "sec-ch-ua",
+            "value": "\"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\""
+          },
+          {
+            "key": "sec-ch-ua-mobile",
+            "value": "?0"
+          },
+          {
+            "key": "sec-ch-ua-platform",
+            "value": "\"Windows\""
+          },
+          {
+            "key": "sec-fetch-dest",
+            "value": "empty"
+          },
+          {
+            "key": "sec-fetch-mode",
+            "value": "cors"
+          },
+          {
+            "key": "sec-fetch-site",
+            "value": "same-site"
+          },
+          {
+            "key": "user-agent",
+            "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "data",
+              "value": "{{requestBody}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://api-backend.yosuite.net/component/modules/appreciations/award/form/form-component/store-content",
+          "protocol": "https",
+          "host": [
+            "api-backend",
+            "yosuite",
+            "net"
+          ],
+          "path": [
+            "component",
+            "modules",
+            "appreciations",
+            "award",
+            "form",
+            "form-component",
+            "store-content"
+          ]
+        },
+        "description": "Generated from cURL: curl 'https://api-backend.yosuite.net/component/modules/appreciations/award/form/form-component/store-content' \\\r\n  -H 'accept: */*' \\\r\n  -H 'accept-language: en-US,en;q=0.9' \\\r\n  -H 'authorization: Bearer AES-eyJjaXBoZXJ0ZXh0IjoiSFlKbW8vYzVvTTRLSHlsaXJ0bk1aa1UzL3Bpelh3NCtETE0rNy90bGFpTGJDWmpEaHJMT3lncVR2azdvOTBUL1pPOGRIdE1VTXAwN004S0Jpc3VQMVJBQWhMblpHazlzVWtGMThISnd1czlqREhacTJqeFZMaHkxWU40ZHpYYUFqTW02emdyclpwTDUrQXhDT0taT3lrTUVSTlR5TnVLYUhXZGt5MjBUZkRMN1ZGVlR3bW14ZlVtbk1adkNURE91cXQvNmFwYmt3VGYxSjc1TVhEOHJyanR1K3N4VktYQkx5QnhJWVpmbStvdVl5MFdvb25IVE5EYlc3b2d0MDZSZDBZSGJ4Yk9wU1ZLN1BWWFRQdDE1bWo4RXBYSGJ2cktxbzd3R0k3Nk1XNFJwZnJuNHg0WGJIZDFUT1ZFTGlaUkpYSjdSUmNzclBuMmRvNm9nUXhTZXJYSitTVU9PVy9JN3A4OThmZEVXcFIrYzJoWXUrTEc4VWJ0R3lUUTNsaUhxWDF4bm1MK2ZEaFdnTC9MSnZXOHVuSjhDMi9zMy9mR25uMVNveVhsOTZtbDYxSVRYbmZEOTFZaCs3RTVZaHNPbEdQUzFXaGhiSFhTd0oxSTQxelNjeitja08veHVyUHlBVG94UlYwMVZhNkI0NTRYRUtHcXJsLzJteCtlc1dTUTkiLCJzYWx0IjoiZGJiMmQ4ZTRlMjBiNzllOTVlZTA3ZjE4ZDlkNzlhOWYiLCJpdiI6IjMxM2M1ZjQzMjU0MTkwNGE1MzFhNGY1ZDA5YjAyMmYyIiwiaXRlcmF0aW9ucyI6OTk5fQ==' \\\r\n  -H 'content-type: multipart/form-data; boundary=----WebKitFormBoundarylyclx7dwBjgshsxo' \\\r\n  -H 'origin: https://microsoft.yosuite.net' \\\r\n  -H 'priority: u=1, i' \\\r\n  -H 'referer: https://microsoft.yosuite.net/' \\\r\n  -H 'sec-ch-ua: \"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"' \\\r\n  -H 'sec-ch-ua-mobile: ?0' \\\r\n  -H 'sec-ch-ua-platform: \"Windows\"' \\\r\n  -H 'sec-fetch-dest: empty' \\\r\n  -H 'sec-fetch-mode: cors' \\\r\n  -H 'sec-fetch-site: same-site' \\\r\n  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36' \\\r\n  --data-raw $'------WebKitFormBoundarylyclx7dwBjgshsxo\\r\\nContent-Disposition: form-data; name=\"data\"\\r\\n\\r\\n{\"name\":\"test01\",\"note\":\"cscssc\",\"award_item\":[{\"temp\":\"Award Item\",\"currency\":\"USD\",\"gift_name\":\"nice\",\"price\":100}]}\\r\\n------WebKitFormBoundarylyclx7dwBjgshsxo--\\r\\n'"
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
