@@ -24,8 +24,7 @@ This Postman collection is designed to help developers and QA engineers test the
 taskAPi/
 ├── apiCollection.postman_collection.json  # Main Postman collection
 ├── README.md                               # Documentation (this file)
-├── Screenshot 175550.png        # API response screenshot
-└── Screenshot 190042.png        # API response screenshot
+└── screenshots/                            # API response screenshots (Link)
 ```
 
 ### File Descriptions
@@ -34,7 +33,22 @@ taskAPi/
 |------|-------------|
 | `apiCollection.postman_collection.json` | Postman collection with all API requests, tests, and pre-request scripts |
 | `README.md` | Comprehensive documentation for the API collection |
-| `Screenshot *.png` | Visual references for API responses |
+| `screenshots/` | [Link](https://drive.google.com/drive/u/0/folders/1g5vkvPtBsW2bTrxElP4Fmo-JK377xtX7) with API test screenshots |
+
+---
+
+## Screenshots
+
+View API test screenshots and results:
+
+**[Google Drive - API Test Screenshots](https://drive.google.com/drive/u/0/folders/1g5vkvPtBsW2bTrxElP4Fmo-JK377xtX7)**
+
+The folder contains:
+- Authentication response screenshots
+- Employee creation results
+- Announcement creation results
+- Award creation results
+- Error handling examples
 
 ---
 
